@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[XI] Xtraordinary - Nitro Type Team</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b00;
+            --primary-dark: #cc5500;
+            --secondary-color: #1a1a2e;
+            --accent-color: #ffd700;
+            --text-light: #ffffff;
+            --text-gray: #b0b0b0;
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --gradient-orange: linear-gradient(135deg, #ff6b00, #ff8c00);
+            --gradient-gold: linear-gradient(135deg, #ffd700, #ffaa00);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            border-bottom-color: var(--primary-color);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 107, 0, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--secondary-color) 50%, var(--bg-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ff6b00" stroke-width="0.1" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+            }
+            to {
+                text-shadow: 0 0 40px rgba(255, 107, 0, 0.8), 0 0 60px rgba(255, 107, 0, 0.4);
+            }
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient-orange);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 107, 0, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 5%;
+            background: var(--secondary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px rgba(255, 107, 0, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 5%;
+            background: var(--bg-dark);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Achievements Section */
+        .achievements {
+            padding: 5rem 5%;
+            background: var(--secondary-color);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .achievement-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(255, 107, 0, 0.2);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-card p {
+            color: var(--text-gray);
+        }
+
+        /* Members Section */
+        .members {
+            padding: 5rem 5%;
+            background: var(--bg-dark);
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .member-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 107, 0, 0.2);
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 50px rgba(255, 107, 0, 0.3);
+        }
+
+        .member-avatar {
+            height: 150px;
+            background: var(--gradient-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .member-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .member-stat {
+            text-align: center;
+        }
+
+        .member-stat span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+
+        .member-stat strong {
+            color: var(--accent-color);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--secondary-color), var(--bg-dark));
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .cta p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 2px solid var(--primary-color);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .social-icon:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-light);
+        }
+
+        .copyright {
+            color: var(--text-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">[XI]</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#members">Members</a></li>
+            <li><a href="#join">Join</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>[XI] Xtraordinary</h1>
+            <p class="tagline">Dominating the tracks, one keystroke at a time</p>
+            <div class="hero-buttons">
+                <a href="https://www.nitrotype.com/team/XI" class="btn btn-primary" target="_blank">Visit Our Team</a>
+                <a href="#join" class="btn btn-secondary">Join the Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <h2 class="section-title fade-in">Team Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card fade-in">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Races Completed</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">85%</div>
+                <div class="stat-label">Win Rate</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">120+</div>
+                <div class="stat-label">WPM Average</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Team Members</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title fade-in">About [XI] Xtraordinary</h2>
+        <div class="about-content fade-in">
+            <p>
+                Welcome to [XI] Xtraordinary, one of the most competitive and dedicated teams on Nitro Type! 
+                We are a community of passionate typers who strive for excellence in every race.
+            </p>
+            <p>
+                Founded with a vision to create a team that embodies both skill and sportsmanship, 
+                [XI] Xtraordinary has grown into a powerhouse in the Nitro Type community. 
+                Our members range from casual racers to competitive champions, all united by our love for speed typing.
+            </p>
+            <p>
+                We believe in continuous improvement, teamwork, and maintaining a positive gaming environment. 
+                Whether you're a beginner looking to improve or an experienced typist seeking competition, 
+                [XI] Xtraordinary welcomes you to join our ranks!
+            </p>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements" id="achievements">
+        <h2 class="section-title fade-in">Our Achievements</h2>
+        <div class="achievements-grid">
+            <div class="achievement-card fade-in">
+                <div class="achievement-icon">🏆</div>
+                <h3>Championship Titles</h3>
+                <p>Multiple tournament victories and seasonal championships under our belt</p>
+            </div>
+            <div class="achievement-card fade-in">
+                <div class="achievement-icon">⚡</div>
+                <h3>Speed Records</h3>
+                <p>Team members holding multiple speed records on various tracks</p>
+            </div>
+            <div class="achievement-card fade-in">
+                <div class="achievement-icon">🎯</div>
+                <h3>Accuracy Excellence</h3>
+                <p>Consistently maintaining 98%+ accuracy across all team members</p>
+            </div>
+            <div class="achievement-card fade-in">
+                <div class="achievement-icon">👥</div>
+                <h3>Community Growth</h3>
+                <p>Growing from a small group to one of the most active teams in the game</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Section -->
+    <section class="members" id="members">
+        <h2 class="section-title fade-in">Meet Our Top Members</h2>
+        <div class="members-grid">
+            <div class="member-card fade-in">
+                <div class="member-avatar">X</div>
+                <div class="member-info">
+                    <h3>XI Leader</h3>
+                    <p>Team Captain</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>142</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>5,200</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="member-card fade-in">
+                <div class="member-avatar">S</div>
+                <div class="member-info">
+                    <h3>SpeedDemon</h3>
+                    <p>Top Racer</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>138</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>4,800</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="member-card fade-in">
+                <div class="member-avatar">T</div>
+                <div class="member-info">
+                    <h3>TypeMaster</h3>
+                    <p>Champion</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>135</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>4,500</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="member-card fade-in">
+                <div class="member-avatar">F</div>
+                <div class="member-info">
+                    <h3>FastFingers</h3>
+                    <p>Pro Racer</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>130</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>4,200</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="join">
+        <div class="cta-content fade-in">
+            <h2>Ready to Join the Elite?</h2>
+            <p>Become part of [XI] Xtraordinary and experience competitive typing like never before. We welcome skilled typers who want to grow with our team!</p>
+            <a href="https://www.nitrotype.com/team/XI" class="btn btn-primary" target="_blank">Join [XI] Xtraordinary Today!</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://www.nitrotype.com/team/XI" target="_blank">Nitro Type Team Page</a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#stats">Statistics</a>
+        </div>
+        <div class="footer-social">
+            <a href="https://www.nitrotype.com/team/XI" class="social-icon" target="_blank" title="Nitro Type">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+            </a>
+        </div>
+        <p class="copyright">&copy; 2024 [XI] Xtraordinary. All rights reserved. | Nitro Type is a registered trademark.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, suffix = '') {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString() + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString() + suffix;
+                }
+            }, 30);
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        let hasAnimated = false;
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    hasAnimated = true;
+                    document.querySelectorAll('.stat-number').forEach(stat => {
+                        const text = stat.textContent;
+                        if (text.includes('K')) {
+                            animateCounter(stat, parseFloat(text));
+                        } else if (text.includes('%')) {
+                            animateCounter(stat, parseInt(text));
+                        } else if (text.includes('+')) {
+                            animateCounter(stat, parseInt(text));
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statsObserver.observe(statsSection);
+
+        console.log('[XI] Xtraordinate Website Loaded Successfully!');
+    </script>
+</body>
+</html>
