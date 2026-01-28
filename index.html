@@ -323,7 +323,7 @@
 
         .members-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
@@ -331,28 +331,92 @@
 
         .member-card {
             background: var(--bg-card);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(255, 107, 0, 0.2);
+            position: relative;
         }
 
         .member-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.02);
             border-color: var(--primary-color);
-            box-shadow: 0 15px 50px rgba(255, 107, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(255, 107, 0, 0.4);
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-orange);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .member-card:hover::before {
+            opacity: 1;
+        }
+
+        .member-header {
+            position: relative;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), rgba(255, 107, 0, 0.05));
+            text-align: center;
         }
 
         .member-avatar {
-            height: 150px;
+            width: 100px;
+            height: 100px;
             background: var(--gradient-orange);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
+            font-size: 2.5rem;
             font-weight: 900;
             color: white;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--bg-card);
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-avatar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .member-card:hover .member-avatar::after {
+            left: 100%;
+        }
+
+        .member-role {
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            background: var(--gradient-orange);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role.captain {
+            background: var(--gradient-gold);
+            color: var(--secondary-color);
         }
 
         .member-info {
@@ -362,15 +426,32 @@
 
         .member-info h3 {
             font-family: 'Orbitron', sans-serif;
+            color: var(--text-light);
+            font-size: 1.4rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .member-username {
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-bio {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
         }
 
         .member-stats {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
-            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
 
         .member-stat {
@@ -379,12 +460,94 @@
 
         .member-stat span {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
         }
 
         .member-stat strong {
             color: var(--accent-color);
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .member-achievements {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .achievement-badge {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255, 107, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-badge:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 107, 0, 0.1);
+        }
+
+        .member-social a {
+            width: 35px;
+            height: 35px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .member-social a:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .member-social svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-light);
+        }
+
+        /* Member card variations */
+        .member-card.featured {
+            border-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--bg-card), rgba(255, 215, 0, 0.05));
+        }
+
+        .member-card.featured::before {
+            background: var(--gradient-gold);
+            opacity: 1;
+        }
+
+        .member-card.featured .member-avatar {
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        .member-card.featured .member-role {
+            background: var(--gradient-gold);
+            color: var(--secondary-color);
         }
 
         /* CTA Section */
@@ -553,30 +716,16 @@
     <section class="members" id="members">
         <h2 class="section-title fade-in">Meet Our Team</h2>
         <div class="members-grid">
-            <div class="member-card fade-in">
-                <div class="member-avatar">S</div>
-                <div class="member-info">
-                    <h3>Shaurya Chauhan</h3>
-                    <p>Elite Racer</p>
-                    <div class="member-stats">
-                        <div class="member-stat">
-                            <span>WPM</span>
-                            <strong>80</strong>
-                        </div>
-                        <div class="member-stat">
-                            <span>Races</span>
-                            <strong>1700+</strong>
-                        </div>
-                    </div>
+            <!-- Member Card 1 - Featured -->
+            <div class="member-card featured fade-in">
+                <div class="member-header">
+                    <div class="member-avatar">XI</div>
+                    <span class="member-role captain">Team Captain</span>
                 </div>
-            </div>
-        </div>
-        <div class="members-grid">
-            <div class="member-card fade-in">
-                <div class="member-avatar">XI</div>
                 <div class="member-info">
                     <h3>XI Holder</h3>
-                    <p>Team Captain</p>
+                    <p class="member-username">@xiholder</p>
+                    <p class="member-bio">Leading by example with exceptional speed and precision. Our captain commands the team with 94 WPM average.</p>
                     <div class="member-stats">
                         <div class="member-stat">
                             <span>WPM</span>
@@ -586,16 +735,75 @@
                             <span>Races</span>
                             <strong>82</strong>
                         </div>
+                        <div class="member-stat">
+                            <span>Rank</span>
+                            <strong>#1</strong>
+                        </div>
+                    </div>
+                    <div class="member-achievements">
+                        <div class="achievement-badge" title="Speed Demon">⚡</div>
+                        <div class="achievement-badge" title="Team Leader">👑</div>
+                        <div class="achievement-badge" title="Accuracy King">🎯</div>
                     </div>
                 </div>
+                <div class="member-social">
+                    <a href="https://www.nitrotype.com/racer/XI" target="_blank" title="View Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="members-grid">
+
+            <!-- Member Card 2 -->
             <div class="member-card fade-in">
-                <div class="member-avatar">TM</div>
+                <div class="member-header">
+                    <div class="member-avatar">S</div>
+                    <span class="member-role">Elite Racer</span>
+                </div>
+                <div class="member-info">
+                    <h3>Shaurya Chauhan</h3>
+                    <p class="member-username">@shauryachauhan</p>
+                    <p class="member-bio">A dedicated team member with impressive consistency and determination. Always ready to race!</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>80</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>1,700+</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Win %</span>
+                            <strong>68%</strong>
+                        </div>
+                    </div>
+                    <div class="member-achievements">
+                        <div class="achievement-badge" title="Veteran">🏆</div>
+                        <div class="achievement-badge" title="Fast Learner">🚀</div>
+                        <div class="achievement-badge" title="Team Player">🤝</div>
+                    </div>
+                </div>
+                <div class="member-social">
+                    <a href="https://www.nitrotype.com/racer/Shaurya" target="_blank" title="View Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Member Card 3 -->
+            <div class="member-card fade-in">
+                <div class="member-header">
+                    <div class="member-avatar">TM</div>
+                    <span class="member-role">Speed Demon</span>
+                </div>
                 <div class="member-info">
                     <h3>TypeMaster</h3>
-                    <p>Speed Demon</p>
+                    <p class="member-username">@typemaster</p>
+                    <p class="member-bio">With over 5000 races, this veteran brings experience and lightning-fast reflexes to every competition.</p>
                     <div class="member-stats">
                         <div class="member-stat">
                             <span>WPM</span>
@@ -603,9 +811,142 @@
                         </div>
                         <div class="member-stat">
                             <span>Races</span>
-                            <strong>5000+</strong>
+                            <strong>5,000+</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Win %</span>
+                            <strong>72%</strong>
                         </div>
                     </div>
+                    <div class="member-achievements">
+                        <div class="achievement-badge" title="Experienced">⭐</div>
+                        <div class="achievement-badge" title="Champion">🏅</div>
+                        <div class="achievement-badge" title="Consistent">📈</div>
+                    </div>
+                </div>
+                <div class="member-social">
+                    <a href="https://www.nitrotype.com/racer/TypeMaster" target="_blank" title="View Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Member Card 4 -->
+            <div class="member-card fade-in">
+                <div class="member-header">
+                    <div class="member-avatar">FL</div>
+                    <span class="member-role">Flash Racer</span>
+                </div>
+                <div class="member-info">
+                    <h3>FastLightning</h3>
+                    <p class="member-username">@fastlightning</p>
+                    <p class="member-bio">Known for incredible bursts of speed. A rising star in the team with amazing potential.</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>85</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>2,500+</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Best</span>
+                            <strong>112</strong>
+                        </div>
+                    </div>
+                    <div class="member-achievements">
+                        <div class="achievement-badge" title="Rising Star">🌟</div>
+                        <div class="achievement-badge" title="Speed King">💨</div>
+                        <div class="achievement-badge" title="Dedicated">💪</div>
+                    </div>
+                </div>
+                <div class="member-social">
+                    <a href="https://www.nitrotype.com/racer/FastLightning" target="_blank" title="View Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Member Card 5 -->
+            <div class="member-card fade-in">
+                <div class="member-header">
+                    <div class="member-avatar">KC</div>
+                    <span class="member-role">Key Champion</span>
+                </div>
+                <div class="member-info">
+                    <h3>KeyChampion</h3>
+                    <p class="member-username">@keychampion</p>
+                    <p class="member-bio">Precision typing at its finest. Maintains exceptional accuracy while pushing for higher speeds.</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>76</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>3,800+</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Acc %</span>
+                            <strong>98%</strong>
+                        </div>
+                    </div>
+                    <div class="member-achievements">
+                        <div class="achievement-badge" title="Accuracy">🎯</div>
+                        <div class="achievement-badge" title="Precision">📍</div>
+                        <div class="achievement-badge" title="Reliable">✅</div>
+                    </div>
+                </div>
+                <div class="member-social">
+                    <a href="https://www.nitrotype.com/racer/KeyChampion" target="_blank" title="View Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Member Card 6 -->
+            <div class="member-card fade-in">
+                <div class="member-header">
+                    <div class="member-avatar">QT</div>
+                    <span class="member-role">Quick Typer</span>
+                </div>
+                <div class="member-info">
+                    <h3>QuickType</h3>
+                    <p class="member-username">@quicktype</p>
+                    <p class="member-bio">Always first to respond in team races. A crucial asset to our competitive lineup.</p>
+                    <div class="member-stats">
+                        <div class="member-stat">
+                            <span>WPM</span>
+                            <strong>82</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Races</span>
+                            <strong>4,200+</strong>
+                        </div>
+                        <div class="member-stat">
+                            <span>Streak</span>
+                            <strong>15</strong>
+                        </div>
+                    </div>
+                    <div class="member-achievements">
+                        <div class="achievement-badge" title="Quick Response">⚡</div>
+                        <div class="achievement-badge" title="Streak Master">🔥</div>
+                        <div class="achievement-badge" title="Team Player">🤝</div>
+                    </div>
+                </div>
+                <div class="member-social">
+                    <a href="https://www.nitrotype.com/racer/QuickType" target="_blank" title="View Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
